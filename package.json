@@ -1,0 +1,11 @@
+{
+  "name": "bboxapi",
+  "version": "1.0.0",
+  "description": "",
+  "main": "injex.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Kris Kristofferson Casio Nabua",
+  "license": "ISC"
+}
