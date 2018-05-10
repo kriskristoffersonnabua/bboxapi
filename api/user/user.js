@@ -15,9 +15,9 @@ var UserSchema = new Schema({
   sex: String,
   birthplace: String,
   photo: String,
-  username: String,
+  email: String,
   password: String,
-  account_type: String,
+  account_type: Number,
   /*client needed information*/
   tutee_firstname: String,
   tutee_middlename: String,

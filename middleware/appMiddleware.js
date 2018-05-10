@@ -1,6 +1,7 @@
 // import application level middleware here
 var bodyParser = require('body-parser');
 var morgan     = require('morgan');
+var cors = require('cors');
 
 module.exports = function(app) {
   // client request logger
@@ -10,4 +11,5 @@ module.exports = function(app) {
   // we can access data we post on as req.body
   app.use(bodyParser.urlencoded({extended: true}));
   app.use(bodyParser.json());
+  app.use(cors());
 };

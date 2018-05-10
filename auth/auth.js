@@ -46,21 +46,21 @@ exports.getFreshUser = function() {
 
 exports.verifyUser = function() {
   return function(req, res, next) {
-    var username = req.body.username;
+    var email = req.body.email;
     var password = req.body.password;
 
     // if no username or password then send
-    if (!username || !password) {
-      res.status(400).send('You need a username and password');
+    if (!email || !password) {
+      res.status(400).send('You need a email and password');
       return;
     }
 
     // look user up in the DB so we can check
-    // if the passwords match for the username
-    User.findOne({username: username})
+    // if the passwords match for the email
+    User.findOne({email: email})
       .then(function(user) {
         if (!user) {
-          res.status(401).send('No user with the given username');
+          res.status(401).send('No user with the given email');
         } else {
           // checking the passowords here
           if (!user.authenticate(password)) {
