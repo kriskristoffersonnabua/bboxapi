@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const expressJwt = require('express-jwt');
 const config = require('../config/config');
-const checkToken = expressJwt({ secret: config.secrets.jwt });
+const checkToken = expressJwt({secret: config.secrets.jwt});
 const User = require('../api/user/user');
 
 exports.decodeToken = function() {
@@ -23,8 +23,8 @@ exports.decodeToken = function() {
 
 exports.getFreshUser = function() {
   return function(req, res, next) {
-    User.findById(req.user._id)
-      .then(function(user) {
+    User.findById(req.user._id).then(
+      function(user) {
         if (!user) {
           // if no user is found it was not
           // it was a valid JWT but didn't decode
@@ -38,10 +38,12 @@ exports.getFreshUser = function() {
           req.user = user;
           next();
         }
-      }, function(err) {
+      },
+      function(err) {
         next(err);
-      });
-  }
+      },
+    );
+  };
 };
 
 exports.verifyUser = function() {
@@ -57,8 +59,8 @@ exports.verifyUser = function() {
 
     // look user up in the DB so we can check
     // if the passwords match for the email
-    User.findOne({email: email})
-      .then(function(user) {
+    User.findOne({email: email}).then(
+      function(user) {
         if (!user) {
           res.status(401).send('No user with the given email');
         } else {
@@ -74,17 +76,17 @@ exports.verifyUser = function() {
             next();
           }
         }
-      }, function(err) {
+      },
+      function(err) {
         next(err);
-      });
+      },
+    );
   };
 };
 
 // util method to sign tokens on signin
 exports.signToken = function(id) {
-  return jwt.sign(
-    {_id: id},
-    config.secrets.jwt,
-    {expiresIn: config.expireTime}
-  );
+  return jwt.sign({_id: id}, config.secrets.jwt, {
+    expiresIn: config.expireTime,
+  });
 };

@@ -1,5 +1,5 @@
 var router = require('express').Router();
-var controller = require('./paymentController');
+var controller = require('./bookedScheduleController');
 var auth = require('../../auth/auth');
 const checkUser = [auth.decodeToken(),auth.getFreshUser()];
 

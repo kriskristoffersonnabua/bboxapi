@@ -10,14 +10,23 @@ const AppointmentSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'user'
   },
-  tutee_id: {
+  tutees: Array,
+  client_id: {
     type: Schema.Types.ObjectId,
     ref: 'user'
   },
-  location: String,
-  tutorial_duration: Number,
-  // stringify data
-  progress_report: String
+  address: String,
+  schedule: Array,
+  start_date: String,
+  end_date: String,
+  progress_report: {
+    type: Schema.Types.ObjectId,
+    ref: 'progressreport'
+  },
+  feedback: {
+    type: Schema.Types.ObjectId,
+    ref: 'feedback'
+  },
 });
 
 module.exports = mongoose.model('appointment', AppointmentSchema);

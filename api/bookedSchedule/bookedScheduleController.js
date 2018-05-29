@@ -1,18 +1,17 @@
 const mongoose = require('mongoose');
-const TutorPayment = require('./tutorPaymentModel');
+const BookedSchedules = require('./bookedScheduleModel');
 const _ = require('lodash');
 
 exports.param = function(req, res, next, id){
-  TutorPayment
+  BookedSchedules
     .findById(id)
     .populate('appointment tutor')
-    .exec()
-    .then(function(tutorpayment){
-      if(!tutorpayment){
-        next("No tutor tutorpayment found");
+    .then(function(bookedschedule){
+      if(!bookedschedule){
+        next("No booked schedule found.");
       }
       else {
-        req.tutorpayment = tutorpayment;
+        req.bookedschedule = bookedschedule;
         next();
       }
     })
@@ -22,22 +21,22 @@ exports.param = function(req, res, next, id){
 }
 
 exports.get = function(req, res, next){
-  TutorPayment
+  BookedSchedules
     .find({})
-    .then(function(tutorpayment){
-      res.json(tutorpayment);
+    .then(function(bookedschedule){
+      res.json(bookedschedule);
     })
 }
 
 exports.getOne = function(req, res, next){
-  res.json(req.tutorpayment);
+  res.json(req.bookedschedule);
 }
 
 exports.put = function(req, res, next){
-  let tutorpayment = req.tutorpayment;
+  let bookedschedule = req.bookedschedule;
   let updatedData = req.body;
-  _.merge(tutorpayment, updatedData);
-  tutorpayment.save(function(error, saved){
+  _.merge(bookedschedule, updatedData);
+  bookedschedule.save(function(error, saved){
     if(error){
       next(error);
     }
@@ -46,15 +45,15 @@ exports.put = function(req, res, next){
 }
 
 exports.post = function(req, res, next){
-  var newTutorPayment = req.body;
-  TutorPayment.create(newTutorPayment)
+  var newFeedback = req.body;
+  BookedSchedules.create(newFeedback)
     .then(function(program){
       res.json(program)
     })
 }
 
 exports.delete = function(req, res, next){
-  req.tutorpayment.remove(function(error, removed){
+  req.bookedschedule.remove(function(error, removed){
     if(error){
       next(error);
     }
