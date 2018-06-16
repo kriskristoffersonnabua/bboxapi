@@ -5,6 +5,7 @@ const checkUser = [auth.decodeToken(), auth.getFreshUser()];
 
 router.param('id', controller.param);
 router.route('/me').get(checkUser, controller.me);
+router.route('/search').get(controller.search);
 
 router.route('/tutors').get(checkUser, controller.getTutors);
 

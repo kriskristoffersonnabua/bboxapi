@@ -5,6 +5,8 @@ const LPRSchema = new Schema({
   date: Date,
   //array of string of subjects
   subject: Array,
+  time_start: Number,
+  time_end: Number,
   duration: Number,
   remarks: String,
   appointment: {
@@ -18,6 +20,10 @@ const LPRSchema = new Schema({
   tutorPaymentBalance: Number,
   isTutorPaymentClaimed: Boolean,
   isGroupTutorial: Boolean,
+  reportSubmitted: {
+    type: Boolean,
+    defaulValue: false,
+  },
 });
 
 module.exports = mongoose.model('lpr', LPRSchema);

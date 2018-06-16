@@ -5,16 +5,14 @@ const BookedScheduleSchema = new Schema({
   date: Date,
   tutor: {
     type: Schema.Types.ObjectId,
-    ref: 'user'
+    ref: 'user',
   },
-  time_start: String,
-  time_end: String,
+  time_start: Number,
   duration: Number,
-  status: String,
   appointment: {
     type: Schema.Types.ObjectId,
-    ref: 'appointment'
-  }
+    ref: 'appointment',
+  },
 });
 
-module.exports = mongoose.model('bookedschedule', BookedScheduleSchema)
+module.exports = mongoose.model('bookedschedule', BookedScheduleSchema);

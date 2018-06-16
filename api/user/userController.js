@@ -49,11 +49,13 @@ exports.getOne = function(req, res, next) {
 
 exports.post = (req, res, next) => {
   const newUser = new User(req.body);
-  User.findOne({email: req.body});
   newUser.save(function(err, user) {
-    if (err) next(err);
-    var token = signToken(user._id);
-    res.json({token: token, id: user._id});
+    if (user != undefined) {
+      var token = signToken(user._id);
+      res.json({token: token, id: user._id});
+    } else if (err) {
+      next(err);
+    }
   });
 };
 
@@ -70,7 +72,6 @@ exports.put = function(req, res, next) {
   userFetchById['schedule'] = schedule;
   userFetchById['subjects'] = subjects;
 
-  console.log(userFetchById);
   userFetchById.save(function(err, user) {
     if (err) next(err);
     res.json(user);
@@ -85,4 +86,19 @@ exports.delete = function(req, res, next) {
       res.json(removedUser);
     }
   });
+};
+
+exports.search = function(req, res, next) {
+  if (req.query && req.query.hasOwnProperty('search')) {
+    User.find({$text: {$search: req.query.search}})
+      .select('-password')
+      .then(
+        function(users) {
+          return res.json(users);
+        },
+        function(error) {
+          next(error);
+        },
+      );
+  }
 };

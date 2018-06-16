@@ -4,29 +4,48 @@ const Schema = mongoose.Schema;
 const AppointmentSchema = new Schema({
   program: {
     type: Schema.Types.ObjectId,
-    ref: 'program'
+    ref: 'program',
   },
-  tutor_id: {
+  tutorId: {
     type: Schema.Types.ObjectId,
-    ref: 'user'
+    ref: 'user',
   },
   tutees: Array,
-  client_id: {
+  clientId: {
     type: Schema.Types.ObjectId,
-    ref: 'user'
+    ref: 'user',
   },
-  address: String,
+  subjects: [String],
+  address: {
+    type: String,
+    get: function(data) {
+      return JSON.parse(data);
+    },
+    set: function(data) {
+      return JSON.stringify(data);
+    },
+  },
   schedule: Array,
-  start_date: String,
-  end_date: String,
-  progress_report: {
-    type: Schema.Types.ObjectId,
-    ref: 'progressreport'
-  },
-  feedback: {
-    type: Schema.Types.ObjectId,
-    ref: 'feedback'
-  },
+  startDate: String,
+  endDate: String,
+  bookedSchedules: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'bookedschedule',
+    },
+  ],
+  progressReport: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'lpr',
+    },
+  ],
+  feedback: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'feedback',
+    },
+  ],
 });
 
 module.exports = mongoose.model('appointment', AppointmentSchema);

@@ -8,7 +8,10 @@ apiRoute.use('/appointment', require('./appointment/appointmentRoutes'));
 apiRoute.use('/payment', require('./payment/paymentRoutes'));
 apiRoute.use('/feedback', require('./feedback/feedbackRoutes'));
 apiRoute.use('/lpr', require('./lpr/lprRoutes'));
-apiRoute.use('/booked_schedule', require('./bookedSchedule/bookedScheduleRoutes'));
+apiRoute.use(
+  '/bookedSchedule',
+  require('./bookedSchedule/bookedScheduleRoutes'),
+);
 
 //general route for the api: /api
 apiRoute.route('/').get(function(req, res) {
