@@ -16,7 +16,7 @@ var UserSchema = new Schema({
   gender: Number,
 
   /*client needed information*/
-  tutees: Array,
+  tutees: [],
   // tutee_firstname: String,
   // tutee_middlename: String,
   // tutee_lastname: String,
@@ -24,8 +24,8 @@ var UserSchema = new Schema({
   /*client end*/
 
   /* tutor needed information */
-  subjects: [String],
-  schedule: [String],
+  subjects: [],
+  schedule: [],
 
   tutorRating: Number,
   tutorPrimaryEducation: String,

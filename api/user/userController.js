@@ -62,19 +62,26 @@ exports.post = (req, res, next) => {
 exports.put = function(req, res, next) {
   const data = req.body;
   const userFetchById = req.userFetchById;
+  _.assign(userFetchById, data);
+  console.log('updating...');
+  console.log(data);
+  console.log(userFetchById);
 
-  let subjects = req.body.subjects;
-  let schedule = req.body.schedule;
-  delete data['subjects'];
-  delete data['schedule'];
-  _.merge(userFetchById, data);
-
-  userFetchById['schedule'] = schedule;
-  userFetchById['subjects'] = subjects;
-
+  if (data.hasOwnProperty('subjects') && data.subjects.length > 0) {
+    userFetchById.markModified('subjects');
+  }
+  if (data.hasOwnProperty('schedule') && data.schedule.length > 0) {
+    userFetchById.markModified('schedule');
+  }
+  if (data.hasOwnProperty('tutees') && data.tutees.length > 0) {
+    userFetchById.markModified('tutees');
+  }
   userFetchById.save(function(err, user) {
-    if (err) next(err);
-    res.json(user);
+    console.log('user', user);
+    console.log('err', err);
+    next();
+    // if (err) next(err);
+    // res.json(user);
   });
 };
 

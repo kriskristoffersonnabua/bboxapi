@@ -1,6 +1,7 @@
+// const Appointment = require('../api/appointment/appointmentModel');
 const Programs = require('../api/program/program');
-const BookedSchedules = require('../api/bookedSchedule/bookedScheduleModel');
-const LPR = require('../api/lpr/lprModel');
+// const BookedSchedules = require('../api/bookedSchedule/bookedScheduleModel');
+// const LPR = require('../api/lpr/lprModel');
 const _ = require('lodash');
 
 const programs = [
@@ -47,7 +48,10 @@ var createDoc = function(model, doc) {
 };
 
 var cleanDB = function() {
-  var cleanPromises = [Programs, BookedSchedules, LPR].map(function(model) {
+  var cleanPromises = [
+    Programs,
+    /* Programs, BookedSchedules, LPR, Appointment */
+  ].map(function(model) {
     return model.remove().exec();
   });
   return Promise.all(cleanPromises);

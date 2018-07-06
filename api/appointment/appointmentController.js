@@ -1,10 +1,9 @@
 const Appointments = require('./appointmentModel');
-var mongoose = require('mongoose');
 const _ = require('lodash');
 
 exports.param = function(req, res, next, id) {
   Appointments.findById(id)
-    .populate('tutor_id tutee_id program bookedSchedules progressReport')
+    .populate('tutorId program bookedSchedules progressReport')
     .exec()
     .then(function(appointment) {
       if (!appointment) {
@@ -17,13 +16,43 @@ exports.param = function(req, res, next, id) {
 };
 
 exports.get = function(req, res, next) {
-  Appointments.find({}).then(function(appointment) {
-    res.json(appointment);
-  });
+  try {
+    if (req.query && req.query.hasOwnProperty('cid')) {
+      Appointments.find({clientId: req.query.cid})
+        .populate('tutorId program bookedSchedules progressReport')
+        .then(function(appointment) {
+          res.json(appointment);
+        });
+    } else if (req.query && req.query.hasOwnProperty('tid')) {
+      Appointments.find({tutorId: req.query.tid})
+        .populate('tutorId program bookedSchedules progressReport')
+        .then(function(appointment) {
+          res.json(appointment);
+        });
+    } else if (req.query && req.query.hasOwnProperty('admin')) {
+      Appointments.find({})
+        .populate('tutorId program bookedSchedules progressReport')
+        .then(function(appointment) {
+          res.json(appointment);
+        });
+    } else {
+      Appointments.find({})
+        .populate('tutorId program bookedSchedules progressReport')
+        .then(function(appointment) {
+          res.json(appointment);
+        });
+    }
+  } catch (exception) {
+    next(exception);
+  }
 };
 
 exports.getOne = function(req, res, next) {
-  res.json(req.appointment);
+  try {
+    res.json(req.appointment);
+  } catch (exception) {
+    next(exception);
+  }
 };
 
 exports.put = function(req, res, next) {
@@ -43,7 +72,6 @@ exports.put = function(req, res, next) {
     appointment.markModified('subjects');
   }
   appointment.save(function(error, saved) {
-    console.log(saved);
     if (error) {
       next(error);
     } else res.json(saved);
@@ -52,9 +80,10 @@ exports.put = function(req, res, next) {
 
 exports.post = function(req, res, next) {
   var newAppointment = req.body;
-  console.log(newAppointment);
-  Appointments.create(newAppointment).then(function(program) {
-    res.json(program);
+  Appointments.create(newAppointment).then(function(error, program) {
+    if (!error) {
+      res.json(program);
+    } else next(error);
   });
 };
 
