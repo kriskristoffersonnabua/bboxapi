@@ -63,9 +63,6 @@ exports.put = function(req, res, next) {
   const data = req.body;
   const userFetchById = req.userFetchById;
   _.assign(userFetchById, data);
-  console.log('updating...');
-  console.log(data);
-  console.log(userFetchById);
 
   if (data.hasOwnProperty('subjects') && data.subjects.length > 0) {
     userFetchById.markModified('subjects');
@@ -77,8 +74,6 @@ exports.put = function(req, res, next) {
     userFetchById.markModified('tutees');
   }
   userFetchById.save(function(err, user) {
-    console.log('user', user);
-    console.log('err', err);
     next();
     // if (err) next(err);
     // res.json(user);
