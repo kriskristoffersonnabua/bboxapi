@@ -20,9 +20,27 @@ const programs = [
     price: 2500,
   },
   {
+    programType: 1,
+    programDescription:
+      'Civil Service Exam Review offers a variety of teaching that would make your learnings better for greater results for upcoming test. Book now for available slots.',
+    batchNumber: 2,
+    slots: 35,
+    schedule: ['1528688873124:8.5-2:0-0'],
+    price: 2500,
+  },
+  {
     programType: 2,
     programDescription:
       'PSHS Review offers a variety of teaching that would make your learnings better for greater results for upcoming test. Book now for available slots.',
+    batchNumber: 2,
+    slots: 35,
+    schedule: ['1528688873124:8.5-2:0-0'],
+    price: 2500,
+  },
+  {
+    programType: 3,
+    programDescription:
+      'College Entrance Exam Review offers a variety of teaching that would make your learnings better for greater results for upcoming test. Book now for available slots.',
     batchNumber: 2,
     slots: 35,
     schedule: ['1528688873124:8.5-2:0-0'],
