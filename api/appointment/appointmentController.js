@@ -80,8 +80,8 @@ exports.put = function(req, res, next) {
 
 exports.post = function(req, res, next) {
   var newAppointment = req.body;
-  Appointments.create(newAppointment).then(function(error, program) {
-    if (!error) {
+  Appointments.create(newAppointment).then(function(program, error) {
+    if (program) {
       res.json(program);
     } else next(error);
   });

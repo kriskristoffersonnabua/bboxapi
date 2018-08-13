@@ -11,6 +11,15 @@ const AppointmentSchema = new Schema({
     ref: 'user',
   },
   tutees: Array,
+  reviewee: {
+    type: String,
+    get: function(data) {
+      return JSON.parse(data);
+    },
+    set: function(data) {
+      return JSON.stringify(data);
+    },
+  },
   clientId: {
     type: Schema.Types.ObjectId,
     ref: 'user',
@@ -44,6 +53,17 @@ const AppointmentSchema = new Schema({
     {
       type: Schema.Types.ObjectId,
       ref: 'feedback',
+    },
+  ],
+  payment: [
+    {
+      type: String,
+      get: function(data) {
+        return JSON.parse(data);
+      },
+      set: function(data) {
+        return JSON.stringify(data);
+      },
     },
   ],
 });

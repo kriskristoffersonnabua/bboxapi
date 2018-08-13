@@ -16,7 +16,7 @@ const programs = [
       'Civil Service Exam Review offers a variety of teaching that would make your learnings better for greater results for upcoming test. Book now for available slots.',
     batchNumber: 2,
     slots: 35,
-    schedule: ['1528688873124:8.5-2:0-0'],
+    schedule: ['1528688873124:8.5-2:0-0', '1629688873124:8.5-2:2-2'],
     price: 2500,
   },
   {
